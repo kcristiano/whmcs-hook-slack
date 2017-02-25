@@ -93,11 +93,12 @@ function hook_slack_ticketopen($vars)
     $priority = $vars['priority'];
     $name = get_client_name($userid);
 
-    $text  = "[ID: ".$ticketid."] ".$subject."\r\n";
-    $text .= "User: ".$name."\r\n";
+    $text  = "[ID: ".$ticketid."] ".$subject." ";
+    $text .= "Ticket Opened By User: ".$name." ";
     $text .= "Department: ".$deptname."\r\n\r\n";
     //$text .= "Priority: ".$priority."\r\n";
-    $text .= $message."\r\n";
+    //$text .= $message."\r\n";
+    $text .= "https://tadpole.cc/pad/admin/supporttickets.php?action=view&id=" . $ticketid;
 
     slack_post($text);
 }
@@ -113,11 +114,12 @@ function hook_slack_ticketuserreply($vars)
     $priority = $vars['priority'];
     $name = get_client_name($userid);
 
-    $text  = "[ID: ".$ticketid."] ".$subject."\r\n";
-    $text .= "User: ".$name."\r\n";
+    $text  = "[ID: ".$ticketid."] ".$subject." ";
+    $text .= "Reply From User: ".$name." ";
     $text .= "Department: ".$deptname."\r\n\r\n";
     //$text .= "Priority: ".$priority."\r\n";
-    $text .= $message."\r\n";
+    //$text .= $message."\r\n";
+    $text .= "https://tadpole.cc/pad/admin/supporttickets.php?action=view&id=" . $ticketid;
 
     slack_post($text);
 }
@@ -131,12 +133,14 @@ function hook_slack_ticketadminreply($vars)
     $subject = $vars['subject'];
     $message = $vars['message'];
     $priority = $vars['priority'];
+    $ticketlink = $vars['tid'];
 
-    $text  = "Admin Reply\r\n[ID: ".$ticketid."] ".$subject."\r\n";
-    $text .= "Admin: ".$admin."\r\n";
+    $text  = "Admin Reply\r\n[ID: ".$ticketid."] ".$subject." ";
+    $text .= "By Admin: ".$admin." ";
     $text .= "Department: ".$deptname."\r\n\r\n";
     //$text .= "Priority: ".$priority."\r\n";
-    $text .= $message."\r\n";
+    //$text .= $message."\r\n";
+    $text .= "https://tadpole.cc/pad/admin/supporttickets.php?action=view&id=" . $ticketid;
 
     slack_post($text);
 }
